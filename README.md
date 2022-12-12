@@ -1,7 +1,7 @@
 # SVM_image_class
 Diego Queiroz - 5222; Ricardo B. - 5948
 
-#Projeto da disciplina SIN 393 referente à classificação de imagens entre um conjunto de morcegos, maçãs, óssos e bezouros
+#Projeto da disciplina SIN 393 referente à classificação de imagens entre um conjunto de morcegos, maçãs, óssos e bezouro
 Para executar o projeto siga as seguintes instruções no prompt de comando:
 
    $ conda create –n env-proj1-393-py38 python=3.8
@@ -26,3 +26,5 @@ acuracia       0.972222  0.972222  0.972222  0.972222
 precisao            1.0       1.0       1.0       0.9
 sensitividade       1.0  0.888889       1.0       1.0
 f1_score            1.0  0.941176       1.0  0.947368 
+
+Notas: a normalização foi feita por meio do z-score (de scipy.stats) e a validação por meio do K-fold. Essa validação ocorre durante a chamada "model_selection.GridSearchCV{}" em que é passado o parâmetro "CV=10", que define a aplicação do K-fold para 10 conjuntos distintos de validação a partir do conjunto de treino.
