@@ -24,16 +24,14 @@ Para executar o projeto siga as seguintes instruções no prompt de comando:
 
 Notas: a normalização foi feita por meio do z-score (de scipy.stats) e validação por meio do K-fold. Essa validação ocorre durante a chamada "model_selection.GridSearchCV{}" em que é passado o parâmetro "CV=10", que define a aplicação do K-fold para 10 conjuntos distintos de validação a partir do conjunto de treino.
 
-Seguem os As matrizes de confusão de Teste:
+Seguem as matrizes de confusão de Treino (126 imagens de cada classe) e de Teste (54 imagens de cada classe) do melhor modelo:
 
-x-special/nautilus-clipboard
-copy
-file:///home/diego/Desktop/Teste.png
+![Treino](https://user-images.githubusercontent.com/43487367/207147734-2cdfa508-6577-412c-86da-30d62688490a.png)
 
-E Treino:
 
-x-special/nautilus-clipboard
-copy
-file:///home/diego/Desktop/Treino.png
+![Teste](https://user-images.githubusercontent.com/43487367/207147721-38d40c92-667c-47df-b3dd-8e95cdb7182e.png)
+
+
+
 
 
