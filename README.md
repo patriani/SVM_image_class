@@ -28,3 +28,14 @@ sensitividade       1.0  0.888889       1.0       1.0
 f1_score            1.0  0.941176       1.0  0.947368 
 
 Notas: a normalização foi feita por meio do z-score (de scipy.stats) e validação por meio do K-fold. Essa validação ocorre durante a chamada "model_selection.GridSearchCV{}" em que é passado o parâmetro "CV=10", que define a aplicação do K-fold para 10 conjuntos distintos de validação a partir do conjunto de treino.
+
+Seguem os As matrizes de confusão de Teste:
+
+x-special/nautilus-clipboard
+copy
+file:///home/diego/Desktop/Teste.png
+
+E Treino:
+
+file:///home/diego/Desktop/Treino.png
+
