@@ -37,5 +37,8 @@ file:///home/diego/Desktop/Teste.png
 
 E Treino:
 
+x-special/nautilus-clipboard
+copy
 file:///home/diego/Desktop/Treino.png
+
 
