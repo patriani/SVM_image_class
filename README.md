@@ -26,6 +26,5 @@ acuracia       0.972222  0.972222  0.972222  0.972222
 precisao            1.0       1.0       1.0       0.9
 sensitividade       1.0  0.888889       1.0       1.0
 f1_score            1.0  0.941176       1.0  0.947368 
-![image](https://user-images.githubusercontent.com/43487367/207144729-61722338-aec5-43bc-87fa-4d464260a508.png)
 
 Notas: a normalização foi feita por meio do z-score (de scipy.stats) e validação por meio do K-fold. Essa validação ocorre durante a chamada "model_selection.GridSearchCV{}" em que é passado o parâmetro "CV=10", que define a aplicação do K-fold para 10 conjuntos distintos de validação a partir do conjunto de treino.
