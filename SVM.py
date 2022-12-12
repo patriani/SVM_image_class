@@ -22,6 +22,7 @@ from sklearn import model_selection, svm
 from sklearn.svm import SVC
 from sklearn.metrics import plot_confusion_matrix, precision_score, recall_score, accuracy_score, f1_score
 import scipy.stats as stats
+import matplotlib.cm as cm
 
 np.random.seed(393) # seed de aleatoriedade prédefinida para replicar os resultados obtidos
 
@@ -49,6 +50,7 @@ for filename in os.scandir(directory):
 labels = pd.DataFrame(0,index=range(0,126),columns=['Labels']) 
 labels.Labels = int(0)
 apple['Labels'] = labels #cria uma coluna de labels com 0 para todas as maçãs
+print("apple")
 print(apple.describe()) ## solidity é o que melhor descreve a maçã
 
 """Decidimos observando a média e desvio padrão que as celuas são as melhores, euler_number, eccentricity, Extent, Solidity, labels"""
@@ -70,7 +72,7 @@ labels = pd.DataFrame(0,index=range(0,126),columns=['Labels'])
 labels.Labels = 1
 bat['Labels'] = labels #cria uma coluna de labels com 1 para todos os morcegos
 
-# print(bat)
+print("bat")
 print(bat.describe()) ## solidity é o que melhor descreve a maçã
 
 directory = directorybase +  '/Train/beetle'
@@ -89,7 +91,7 @@ labels = pd.DataFrame(0,index=range(0,126),columns=['Labels'])
 labels.Labels = 2
 beetle['Labels'] = labels #cria uma coluna de labels com 1 para todos os morcegos
 
-# print(beetle)
+print("beetle")
 print(beetle.describe()) ## solidity é o que melhor descreve a maçã
 
 directory = directorybase + '/Train/bone'
@@ -108,7 +110,7 @@ labels = pd.DataFrame(0,index=range(0,126),columns=['Labels'])
 labels.Labels = 3
 bone['Labels'] = labels #cria uma coluna de labels com 1 para todos os morcegos
 
-# print(bone)
+print("bone")
 print(bone.describe()) ## solidity é o que melhor descreve a maçã
 
 """Nó código imediatamente abaixo o conjunto não é mais splitado porque em vez da abordagem hold-out para validação é aplicado K-fold em: sklearn.model_selection.GridSearchCV (nos quadros que retornam matriz de confusão)"""
@@ -241,6 +243,14 @@ conferir: kernel {‘linear’, ‘poly’, ‘rbf’, ‘sigmoid’, ‘precomp
 Notebook referência: https://github.com/joaofmari/SIN393_Introducao-a-visao-computacional_2022-2/blob/main/notebooks/Aula%2007%20-%20Classificadores%20K-NN%2C%20Bayes%20e%20SVM.ipynb
 """
 
+
+
+##################Filtro que Obteve a melhor qualidade na analize da ácurácia####################
+
+
+
+print('\n\n\nFiltro que Obteve a Maior acurácia em relação aos testados:\n\n\n')
+
 ##aplicando Gaussiano
 param_grid = [
     {'C':[0.5,1,3,5,10,100],
@@ -263,10 +273,13 @@ gauss=optimal_params.fit(X_train_norm,y_train)
 print(f'os melhores parametros são {optimal_params.best_params_}')
 #Matriz de Confusão do treino
 plot_confusion_matrix(gauss,X_train_norm,y_train,values_format='d',display_labels=['0','1','2','3'])
+
 SVC(random_state=393)
+
 #Matriz de Confusão do teste de predição
 y_pred=gauss.predict(X_test_norm)
-plot_confusion_matrix(gauss,X_test_norm,y_test,values_format='d',display_labels=['0','1','2','3'])
+matriz=plot_confusion_matrix(gauss,X_test_norm,y_test,values_format='d',display_labels=['0','1','2','3'])
+
 
 metricas = pd.DataFrame(index = ['acuracia','precisao','sensitividade','f1_score'],columns=['0','1','2','3'])
 metricas.iloc[0] = accuracy_score(y_test, y_pred)
@@ -276,6 +289,16 @@ metricas.iloc[3] = f1_score(y_test, y_pred, average=None)
 
 print('Métricas da Matriz de Confusão de Teste (54 elementos de cada classe):')
 print(metricas)
+
+
+
+
+#Outros testes com resultados relevantes.
+
+
+
+print('\n\n\nFiltro que Obteve a segunda Maior acurácia em relação aos testados:\n\n\n')
+
 
 param_grid = [
     {'C':[0.5,1,3,5,10,100],
@@ -292,11 +315,11 @@ optimal_params = model_selection.GridSearchCV(
 ) 
 poly=optimal_params.fit(X_train_norm,y_train)
 print(optimal_params.best_params_)
-plot_confusion_matrix(poly,X_train_norm,y_train,values_format='d',display_labels=['0','1','2','3'])
+#plot_confusion_matrix(poly,X_train_norm,y_train,values_format='d',display_labels=['0','1','2','3'])
 
 SVC(random_state=393)
 y_pred=poly.predict(X_test_norm)
-plot_confusion_matrix(poly,X_test_norm,y_test,values_format='d',display_labels=['0','1','2','3'])
+#plot_confusion_matrix(poly,X_test_norm,y_test,values_format='d',display_labels=['0','1','2','3'])
 
 metricas = pd.DataFrame(index = ['acuracia','precisao','sensitividade','f1_score'],columns=['0','1','2','3'])
 metricas.iloc[0] = accuracy_score(y_test, y_pred)
@@ -306,6 +329,12 @@ metricas.iloc[3] = f1_score(y_test, y_pred, average=None)
 
 print('Métricas da Matriz de Confusão de Teste (54 elementos de cada classe):')
 print(metricas)
+
+
+
+print('\n\n\n Filtros que teve acurácia relevante:\n\n\n')
+
+
 
 param_grid = [
     {'C':[0.5,1,3,5,10,100],
@@ -321,11 +350,11 @@ optimal_params = model_selection.GridSearchCV(
 )
 sigmoid=optimal_params.fit(X_train_norm,y_train)
 print(optimal_params.best_params_)
-mat_train = plot_confusion_matrix(sigmoid,X_train_norm,y_train,values_format='d',display_labels=['0','1','2','3'])
+#mat_train = plot_confusion_matrix(sigmoid,X_train_norm,y_train,values_format='d',display_labels=['0','1','2','3'])
 
 SVC(random_state=393)
 y_pred=sigmoid.predict(X_test_norm)
-mat_test = plot_confusion_matrix(sigmoid,X_test_norm,y_test,values_format='d',display_labels=['0','1','2','3'])
+#mat_test = plot_confusion_matrix(sigmoid,X_test_norm,y_test,values_format='d',display_labels=['0','1','2','3'])
 
 metricas = pd.DataFrame(index = ['acuracia','precisao','sensitividade','f1_score'],columns=['0','1','2','3'])
 metricas.iloc[0] = accuracy_score(y_test, y_pred)
@@ -335,6 +364,12 @@ metricas.iloc[3] = f1_score(y_test, y_pred, average=None)
 
 print('Métricas da Matriz de Confusão de Teste (54 elementos de cada classe):')
 print(metricas)
+
+
+
+print('\n\n\n Filtro que teve acurácia relevantes:\n\n\n')
+
+
 
 param_grid = [
     {'C':[0.5,1,3,5,10,100],
@@ -351,11 +386,11 @@ optimal_params = model_selection.GridSearchCV(
 
 linear=optimal_params.fit(X_train_norm,y_train)
 print(optimal_params.best_params_)
-plot_confusion_matrix(linear,X_train_norm,y_train,values_format='d',display_labels=['0','1','2','3'])
+#mat_train=plot_confusion_matrix(linear,X_train_norm,y_train,values_format='d',display_labels=['0','1','2','3'])
 
 SVC(random_state=393)
 y_pred=linear.predict(X_test_norm)
-plot_confusion_matrix(linear,X_test_norm,y_test,values_format='d',display_labels=['0','1','2','3'])
+#mat_test = plot_confusion_matrix(linear,X_test_norm,y_test,values_format='d',display_labels=['0','1','2','3'])
 
 metricas = pd.DataFrame(index = ['acuracia','precisao','sensitividade','f1_score'],columns=['0','1','2','3'])
 metricas.iloc[0] = accuracy_score(y_test, y_pred)
@@ -365,3 +400,8 @@ metricas.iloc[3] = f1_score(y_test, y_pred, average=None)
 
 print('Métricas da Matriz de Confusão de Teste (54 elementos de cada classe):')
 print(metricas)
+
+print('\n\n\n Fim  da compilação do código, seguem as as matrizes de confusão de treino e teste do melhor resultado:\n\n\n')
+
+
+plt.show()
